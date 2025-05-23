@@ -13,7 +13,7 @@ import { FilterBy } from './types/FIlterBy';
 //#endregion
 export const App: React.FC = () => {
   //#region states
-  const [todos, setTodos] = useState<Todo[] | null>(null);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [errorType, setErrorType] = useState<ErrorNotifications | null>(null);
   const [filterBy, setFilterBy] = useState(FilterBy.all);
   //#endregion
@@ -43,13 +43,7 @@ export const App: React.FC = () => {
     }
   }, [todos, filterBy]);
 
-  const todosLength = useMemo((): boolean => {
-    if (todos === null || todos.length < 1) {
-      return false;
-    }
-
-    return true;
-  }, [todos]);
+  const todosLength = useMemo((): boolean => !!todos.length, [todos]);
 
   const closeNotification = useCallback(() => {
     setErrorType(null);
